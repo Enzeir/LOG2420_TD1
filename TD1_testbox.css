@@ -1,4 +1,4 @@
-.box{
+.dateRow{
 	display: flex;
 
 	border-collapse: collapse;
@@ -9,7 +9,7 @@
 	max-width: 80vw;
 }
 
-.newParticipantBox{
+.newParticipantRow{
     display: flex;
     border-collapse: collapse;
     flex-direction: row;
@@ -23,10 +23,12 @@
 }
 
 .checkBox{
-    flex: 1 1 ;
-    object-fit: fill;
+	flex: 1 1 auto;
+	align-items: center;
+	
     max-height: 50px;
 }
+
 .dateBox{
 	flex: 1 1 auto;
 	border: 1px solid black;
@@ -34,21 +36,12 @@
 
 .firstBox{
     display: flex;
-	flex: 1 1 15%;
+	width: 15%;
     flex-direction: row;
     align-items: center;
-}
-
-.nameBox{
-    
-}
-
-.participantImageBox{
-
 }
 
 .confirmedParticipantImage{
 	flex:1 1 auto;
 	border: 2px solid blue;
 }
-	
