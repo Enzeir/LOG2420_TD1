@@ -1,31 +1,50 @@
-
-
 .box{
 	display: flex;
 
 	border-collapse: collapse;
-	justify-content: space-evenly;
 	flex-direction: row;
-	align-items: start;
+	align-items: flex-start;
 	border: 1px solid black;
 	padding: 0;
 	max-width: 80vw;
 }
 
+.newParticipantBox{
+    display: flex;
+    border-collapse: collapse;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid black;
+    padding: 0;
+    max-width: 80vw;
+    max-height: 50px;
+
+    background-color: lightblue;
+}
+
+.checkBox{
+    flex: 1 1 ;
+    object-fit: fill;
+    max-height: 50px;
+}
 .dateBox{
 	flex: 1 1 auto;
 	border: 1px solid black;
 }
 
-.emptyBox{
-	flex: 1 1 10%;
+.firstBox{
+    display: flex;
+	flex: 1 1 15%;
+    flex-direction: row;
+    align-items: center;
 }
 
 .nameBox{
-	flex:1 1 10%;
-	align-items: center;
-	border: 1px solid black;
-	
+    
+}
+
+.participantImageBox{
+
 }
 
 .confirmedParticipantImage{
