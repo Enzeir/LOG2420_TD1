@@ -1,0 +1,4 @@
+1-crayon pour l'edition www.fontawesome.com
+2- bulle d'info (tooltip)
+3- selection d'un choix (checkbox ou image)
+
