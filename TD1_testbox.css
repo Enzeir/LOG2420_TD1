@@ -1,21 +1,24 @@
 img{
 	display: inline-flex;
-	
+
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: auto;
 	margin-bottom: auto;
 }
 
-
 .fullBoard{
-	max-width: 80vw;
+	display: flex;
+	width: 865px;
+	height: 450px;
 	flex-direction: column;
 }
-
+p{
+	font-size: large;
+	font-weight: bold; 
+}
 .dateRow{
 	display: flex;
-
 	border-collapse: collapse;
 	flex-direction: row;
 	align-items: flex-start;
@@ -30,11 +33,20 @@ img{
     align-items: center;
     border: 1px solid black;
     padding: 0;
-    max-height: 50px;
 
     background-color: lightblue;
 }
-
+.ParticipantRow{
+    display: flex;
+    border-collapse: collapse;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid black;
+    padding: 0;
+	height: 45px;
+    background-color: lightblue;
+    width: 865px;
+}
 .confirmedParticipantRow{
     display: flex;
     border-collapse: collapse;
@@ -42,45 +54,57 @@ img{
     align-items: center;
     border: 1px solid black;
     padding: 0;
-    max-height: 40px;
+
 }
 
 .firstBox{
-    display: flex;
-	width: 15%;
+
+	min-width: 217px;
     flex-direction: row;
-    align-items: center;
+
 }
 
 .dateBox{
-	flex: 1 1 auto;
 	border: 1px solid black;
+	text-align: center;
+    width: 72px;
 }
 
 .confirmedParticipantImage{
-	flex: 1 1 auto;
-	border: 2px solid blue;
-}
 
+	border: 2px solid blue;
+	width: 72px;
+}
 
 .checkBox{
-	flex: 1 1 auto;
-	align-items: center;
-	
-    max-height: 50px;
-}
 
+	align-items: center;
+	width: 72px;
+	height: 57px;
+}
+.checkImage{
+	width:72px;
+	height:57px;
+}
+.choiceBox{
+
+    background-color: Bisque;
+	align-items: center;
+	border-collapse: collapse;
+	border: 1px solid grey;
+	width: 70px;
+	height: 45px;
+}
 .confirmedBox{
-	flex: 1 1 auto;
+
 	flex-direction: row;
 	align-items: center;
-
-	
+	width: 72px;	
 	border: 1px solid black;
 }
+.tickImage{
 
+	width:72px;
+	height:45px;
 
-
-
-
-
+}

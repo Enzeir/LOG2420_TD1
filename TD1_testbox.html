@@ -2,24 +2,30 @@
 <html>
 <head>
 	<link rel="stylesheet" href="TD1_testbox.css">
+<script>
+function myFunction() {
+    document.getElementById("test").src= "./Images/tick2.png";
+}
+</script>
 </head>
 
 
 <body>
 <h1>Equipe8520--TD1</h1>
+<button onclick="myFunction()">Try it</button>
 <div class="fullBoard">
 	<!--creates a row for the dates at the top of the project--> 
 	<div class="dateRow">
 		<div class="firstBox"></div>
-		<div class="dateBox">date1</div>
-		<div class="dateBox">date2</div>
-		<div class="dateBox">date3</div>
-		<div class="dateBox">date4</div>
-		<div class="dateBox">date5</div>
-		<div class="dateBox">date6</div>
-		<div class="dateBox">date7</div>
-		<div class="dateBox">date8</div>
-		<div class="dateBox">date9</div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
+		<div class="dateBox">aout <br><p>27</p>LUN.<br>10:00<br>12:00 </div>
 	</div>
 
 	<!--create a row for the number of confirmed participants each day-->
@@ -59,7 +65,7 @@
 			<img src="./Images/tick2.png" alt="Confirmed tick box 8">
 			0
 		</div>
-		<div class="confirmedBox">
+		<div class="confirmedBox" id="test">
 			<img src="./Images/tick2.png" alt="Confirmed tick box 9">
 			1
 		</div>
@@ -73,38 +79,184 @@
 	<div class="newParticipantRow">
 		<div class="firstBox">
 			<img src="./Images/particip1.png">
-			<input type="text" name="FirstName" value="Michel">
-		</div>
-
-		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 1" style="height:50px">
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 2" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 3" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 4" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 5" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 6" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 7" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 8" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 		<div class="checkBox">
-			<img src="./Images/check.png" alt="Checkbox 9" style="height:50px">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
+		</div>
+		<div class="checkBox">
+			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
 		</div>
 	</div>
-
+	
+	<div class="ParticipantRow">
+		<div class="firstBox">
+			<img src="./Images/particip2.png">
+			Mathieu
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+	</div>
+	<div class="ParticipantRow">
+		<div class="firstBox">
+			<img src="./Images/particip2.png">
+			Kasra
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+	</div>
+	<div class="ParticipantRow">
+		<div class="firstBox">
+			<img src="./Images/particip2.png">
+			Audrey
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+	</div>
+		<div class="ParticipantRow">
+		<div class="firstBox">
+			<img src="./Images/particip2.png">
+			Antoine
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+		</div>
+	</div>
+			<div class="ParticipantRow">
+		<div class="firstBox">
+			<img src="./Images/particip2.png">
+			Michel
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+		<div class="choiceBox">
+		</div>
+		<div class="choiceBox">
+			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
+		</div>
+	</div>
 </div>
 
 
