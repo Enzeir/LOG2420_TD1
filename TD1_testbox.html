@@ -2,6 +2,8 @@
 <html>
 <head>
 	<link rel="stylesheet" href="TD1_testbox.css">
+	<script type="text/javascript" src="TD1.js"></script>
+	
 </head>
 
 
@@ -59,7 +61,7 @@
 			<img src="./Images/tick2.png" alt="Confirmed tick box 8">
 			0
 		</div>
-		<div class="confirmedBox" id="test">
+		<div class="confirmedBox" >
 			<img src="./Images/tick2.png" alt="Confirmed tick box 9">
 			1
 		</div>
@@ -71,8 +73,9 @@
 
 	<!--creates a row for a new participant to add his name and make a selection of the days available--> 
 	<div class="newParticipantRow">
-		<div class="firstBox">
+		<div class="firstBox" onmouseover="showPen('test')" onmouseout="hidePen('test')">
 			<img src="./Images/particip1.png">
+			<img class="pen" id="test" src="./Images/check.png" width="33px" alt="Checkbox" style="visibility: hidden;"  >
 		</div>
 		<div class="checkBox">
 			<img class="checkImage" src="./Images/check.png" alt="Checkbox "  >
@@ -104,9 +107,11 @@
 	</div>
 	
 	<div class="ParticipantRow">
-		<div class="firstBox">
+		<div class="firstBox" onmouseover="showPen('test')" onmouseout="hidePen('test')">
 			<img src="./Images/particip2.png">
 			Mathieu
+			<img class="pen" id="test" src="./Images/check.png" width="33px" alt="Checkbox" style="visibility: hidden;"  >
+
 		</div>
 		<div class="choiceBox">
 			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
@@ -135,9 +140,11 @@
 		</div>
 	</div>
 	<div class="ParticipantRow">
-		<div class="firstBox">
+		<div class="firstBox" onmouseover="showPen('test')" onmouseout="hidePen('test')">
 			<img src="./Images/particip2.png">
 			Kasra
+			<img class="pen" id="test" src="./Images/check.png" width="33px" alt="Checkbox" style="visibility: hidden;"  >
+
 		</div>
 		<div class="choiceBox">
 		</div>
@@ -162,9 +169,10 @@
 		</div>
 	</div>
 	<div class="ParticipantRow">
-		<div class="firstBox">
+		<div class="firstBox" onmouseover="showPen('test')" onmouseout="hidePen('test')">
 			<img src="./Images/particip2.png">
 			Audrey
+			<img class="pen" id="test" src="./Images/check.png" width="33px" alt="Checkbox" style="visibility: hidden;"  >
 		</div>
 		<div class="choiceBox">
 		</div>
@@ -192,9 +200,10 @@
 		</div>
 	</div>
 		<div class="ParticipantRow">
-		<div class="firstBox">
+		<div class="firstBox" onmouseover="showPen('test')" onmouseout="hidePen('test')">
 			<img src="./Images/particip2.png">
 			Antoine
+			<img class="pen" id="test" src="./Images/check.png" width="33px" alt="Checkbox" style="visibility: hidden;" >
 		</div>
 		<div class="choiceBox">
 			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >
@@ -222,9 +231,10 @@
 		</div>
 	</div>
 			<div class="ParticipantRow">
-		<div class="firstBox">
+		<div class="firstBox" onmouseover="showPen('test1')" onmouseout="hidePen('test1')">
 			<img src="./Images/particip2.png">
 			Michel
+			<img class="pen" id="test1" src="./Images/check.png" width="33px" alt="Checkbox" style="visibility: hidden;" >
 		</div>
 		<div class="choiceBox">
 			<img class="tickImage" src="./Images/tick1.png" alt="Checkbox "  >

@@ -13,9 +13,11 @@ img{
 	height: 450px;
 	flex-direction: column;
 }
-p{
-	font-size: large;
-	font-weight: bold; 
+.pen{
+	float: left;
+	position: absolute;
+	left: 20%;
+
 }
 .dateRow{
 	display: flex;
