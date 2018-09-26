@@ -14,10 +14,6 @@ img{
 	border: 1px solid grey;
 	border-collapse: collapse;
 }
-.tickedCheck{
-    float none;
-    
-}
 .pen {
     float: left;
     position: absolute;
@@ -40,8 +36,7 @@ img{
     align-items: center;
     border: 1px solid grey;
     padding: 0;
-
-    background-color: skyblue;
+    background-color: #90c7e8;
 }
 .ParticipantRow{
     display: flex;
@@ -74,16 +69,21 @@ img{
 .checkBox{
 	border-collapse: collapse;
 	border: 1px solid grey;
-	align-items: center;
 	width: 70px;
-	height: 57px;
+	height: 55px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+input[type=checkbox] {
+    width: 24px;
+    height: 24px;
 }
 .checkImage{
 	width:72px;
 	height:57px;
 }
 .choiceBox{
-
     background-color: Bisque;
 	align-items: center;
 	border-collapse: collapse;
@@ -100,8 +100,6 @@ img{
     color: dodgerblue;
 }
 .tickImage{
-
 	width:72px;
 	height:45px;
-
 }
