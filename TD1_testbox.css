@@ -90,6 +90,7 @@ input[type=checkbox] {
 	border: 1px solid grey;
 	width: 70px;
 	height: 45px;
+
 }
 .confirmedBox{
 	border-collapse: collapse;
@@ -102,4 +103,23 @@ input[type=checkbox] {
 .tickImage{
 	width:72px;
 	height:45px;
+}
+
+
+.choiceBox .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.choiceBox:hover .tooltiptext {
+    visibility: visible;
 }
