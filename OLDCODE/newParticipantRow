@@ -1,0 +1,33 @@
+	<div class="newParticipantRow">
+		<div class="firstBox" >
+			<img src="./Images/particip1.png">
+			<input type="text" value="Michel">
+		</div>
+		<div class="checkBox" >
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+		<div class="checkBox">
+			<input type="checkbox" name="vehicle">	
+		</div>
+	</div>

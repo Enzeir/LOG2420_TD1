@@ -29,13 +29,6 @@ function clickedCheck(e) {
     }
 }
 
-function myFunction() {
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("CLICK ME");
-    btn.appendChild(t);
-    document.getElementById("1234").appendChild(btn);
-}
-
 
 function createDates(datesList)
 {
@@ -50,95 +43,153 @@ function createParticipants(listParticipants)
 	  {
 		  if(listParticipants[i]["Statut"] != "EnCours")
 		  {
-			  var Participantrow = document.createElement('div');
-			  Participantrow.setAttribute("class", "ParticipantRow");
-			  
-			  var firstParticipantBox = document.createElement('div');
-			  firstParticipantBox.setAttribute("onmouseover" ,"showPen('pen"+i+"')");
-			  firstParticipantBox.setAttribute("onmouseout" ,"hidePen('pen"+i+"')");
-			  firstParticipantBox.setAttribute("class", "firstBox");
-			  Participantrow.appendChild(firstParticipantBox);
-			  
-			  var participantimg = document.createElement('img');
-			  participantimg.setAttribute("src","./Images/particip2.png");
-			  firstParticipantBox.appendChild(participantimg);
-			  
-			  var t = document.createTextNode(listParticipants[i]["Nom"]);
-			  firstParticipantBox.appendChild(t);
-			  
-			  var penimg = document.createElement('img');
-			  penimg.setAttribute("class", "pen");
-			  penimg.setAttribute("id", "pen"+i);
-			  penimg.setAttribute("onClick", "fsuyf('participant"+i+"')");
-			  penimg.setAttribute("src","./Images/pen.png");
-			  firstParticipantBox.appendChild(penimg);
-			  
-			  document.getElementById("1234").appendChild(Participantrow);
-			  
-			  var disp = listParticipants[i]["Disponibilités"];
-			  
-			  for(var j = 0; j<disp.length; j++)
-			  {
-				  var choicebox = document.createElement('div');
-				  choicebox.setAttribute("class", "choiceBox");
-		
-				  if(disp[j] == 1)
-				  {
-					  var tickImage = document.createElement('img');
-					  tickImage.setAttribute("class", "tickImage");
-					  tickImage.setAttribute("src", "./Images/tick1.png");
-					  choicebox.appendChild(tickImage);
-				  } 
-				  Participantrow.appendChild(choicebox);
-			  }
+			  createCompletedParticipant(i, listParticipants);
 		  }
 		  else
 		  {
-		  	var newParticipantRow = document.createElement('div');
-		  	newParticipantRow.setAttribute("class", "newParticipantRow");
-
-		  	
-		  	var newParticipantFirstBox = document.createElement('div');
-		  	newParticipantFirstBox.setAttribute("class", "firstBox");
-		  	newParticipantRow.appendChild(newParticipantFirstBox);
-		  	
-		  	var newParticipantImg = document.createElement('img');
-		  	newParticipantImg.setAttribute("src", "./Images/particip1.png");
-		  	newParticipantFirstBox.appendChild(newParticipantImg);
-		  	
-		  	var newParticipantName = document.createTextNode(listParticipants[i]["nom"]);
-		  	newParticipantFirstBox.appendChild(newParticipantName);
-
-		  	
-		  	
-		  	var newParticipantInput = document.createElement('input');
-		  	newParticipantInput.setAttribute("type", "text");
-		  	newParticipantInput.setAttribute("value", newParticipantName);
-		  	newParticipantFirstBox.appendChild(newParticipantInput);
-		  	
-		  	document.getElementById("1234").appendChild(newParticipantRow);
-		  	
-		  	var disp = listParticipants[i]["Disponibilités"];
-		  	
-		  	for(var j = 0; j < disp.length; j++)
-	  		{
-		  		var checkboxClass = document.createElement('div');
-		  		checkboxClass.setAttribute("class", "checkBox");
-		  		
-		  		var checkboxInput = document.createElement('input');
-		  		checkboxInput.setAttribute("type", "checkbox");
-		  		
-		  		if(disp[j] == 1)
-		  			{
-		  			checkboxInput.setAttribute("checked", true);
-		  			}
-		  		checkboxClass.appendChild(checkboxInput);
-		  		
-		  		newParticipantRow.appendChild(checkboxClass);
-	  		}
+			  createNewParticipant(i, listParticipants);
 		  
 		  }
 	  }
 }
 
+//Creates the row of a participant that has confirmed its schedule
+function createCompletedParticipant(i, listParticipants)
+{
+	  var Participantrow = document.createElement('div');
+	  Participantrow.setAttribute("class", "ParticipantRow");
+	  
+	  var participantFirstBox = createParticipantFirstBox(i);
+	  Participantrow.appendChild(participantFirstBox);
+	  
+	  var participantimg = document.createElement('img');
+	  participantimg.setAttribute("src","./Images/particip2.png");
+	  participantFirstBox.appendChild(participantimg);
+	  
+	  var t = document.createTextNode(listParticipants[i]["Nom"]);
+	  participantFirstBox.appendChild(t);
+	  
+	  var participantPenImg = createParticipantPenImg(i);
+	  participantFirstBox.appendChild(participantPenImg);
+	  
+	  document.getElementById("1234").appendChild(Participantrow);
+	  
+	  var disp = listParticipants[i]["Disponibilités"];
+	  
+	  for(var j = 0; j<disp.length; j++)
+	  {
+		  var choicebox = createParticipantChoiceBox();
+	
+		  if(disp[j] == 1)
+		  {
+			  var tickImage = createParticipantTickImage();
+			  choicebox.appendChild(tickImage);
+		  } 
+		  Participantrow.appendChild(choicebox);
+	  }
+}
+
+function createParticipantPenImg(i)
+{
+	var penImg = document.createElement('img');
+	penImg.setAttribute("class", "pen");
+	penImg.setAttribute("id", "pen"+i);
+	penImg.setAttribute("onClick", "fsuyf('participant"+i+"')");
+	penImg.setAttribute("src","./Images/pen.png");
+	
+	return penImg;
+}
+
+function createParticipantFirstBox(i)
+{
+	var participantFirstBox = document.createElement('div');
+	participantFirstBox.setAttribute("onmouseover" ,"showPen('pen"+i+"')");
+	participantFirstBox.setAttribute("onmouseout" ,"hidePen('pen"+i+"')");
+	participantFirstBox.setAttribute("class", "firstBox");
+	  
+	return participantFirstBox;
+}
+
+function createParticipantChoiceBox()
+{
+	var choicebox = document.createElement('div');
+	choicebox.setAttribute("class", "choiceBox");
+	
+	return choicebox;
+}
+
+function createParticipantTickImage()
+{
+	  var tickImage = document.createElement('img');
+	  tickImage.setAttribute("class", "tickImage");
+	  tickImage.setAttribute("src", "./Images/tick1.png");
+	  
+	  return tickImage;
+}
+
+
+//create a row for a participant that has not confirmed his schedule
+function createNewParticipant(i, listParticipants)
+{
+	var newParticipantRow = document.createElement('div');
+  	newParticipantRow.setAttribute("class", "newParticipantRow");
+
+  	
+  	var newParticipantFirstBox = createNewParticipantFirstBox()
+  	newParticipantRow.appendChild(newParticipantFirstBox);
+  	
+  	var newParticipantImg = createNewParticipantImg();
+  	newParticipantFirstBox.appendChild(newParticipantImg);
+  	
+  	var newParticipantName = listParticipants[i]["Nom"];
+	
+  	var newParticipantInput  = createNewParticipantNameInput(newParticipantName);
+  	newParticipantFirstBox.appendChild(newParticipantInput);
+  	
+  	document.getElementById("1234").appendChild(newParticipantRow);
+  	
+  	var disp = listParticipants[i]["Disponibilités"];
+  	
+  	for(var j = 0; j < disp.length; j++)
+	{
+		var checkboxClass = document.createElement('div');
+		checkboxClass.setAttribute("class", "checkBox");
+		
+		var checkboxInput = document.createElement('input');
+		checkboxInput.setAttribute("type", "checkbox");
+		
+		if(disp[j] == 1)
+			{
+			checkboxInput.setAttribute("checked", true);
+			}
+		checkboxClass.appendChild(checkboxInput);
+		
+		newParticipantRow.appendChild(checkboxClass);
+	}
+}
+
+function createNewParticipantFirstBox()
+{
+  	var newParticipantFirstBox = document.createElement('div');
+  	newParticipantFirstBox.setAttribute("class", "firstBox");
+  	
+  	return newParticipantFirstBox;
+}
+
+function createNewParticipantImg()
+{
+	  var participantimg = document.createElement('img');
+	  participantimg.setAttribute("src","./Images/particip1.png");
+	  
+	  return participantimg;
+}
+
+function createNewParticipantNameInput(newParticipantName)
+{
+  	var newParticipantNameInput = document.createElement('input');
+  	newParticipantNameInput.setAttribute("type", "text");
+  	newParticipantNameInput.setAttribute("value", newParticipantName);
+  	
+  	return newParticipantNameInput;
+}
 
