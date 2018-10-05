@@ -19,58 +19,70 @@ function showPen(e) {
 function hidePen(e) {
   document.getElementById(e).style.visibility="hidden";
 }
-function clickedCheck(e) {
-	console.log(document.getElementById(e).src);
-	if (document.getElementById(e).src == "./Images/check.png") {
-        document.getElementById(e).src = "./Images/tick-check.png";
-    }
-    else{
-        document.getElementById(e).src = "./Images/check.png";
-    }
-}
 
 
-function createDates(datesList)
+
+function createDates(listDate)
 {
 	
+	var weekDays = ["LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM.", "DIM."];
+	var month = ["janvier","fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
+	
+	var dateRow = document.createElement('div');
+	dateRow.setAttribute("class", "dateRow");
+	
+	var dateFirstBox = document.createElement('div');
+	dateFirstBox.setAttribute("class", "firstBox");
+	dateRow.appendChild(dateFirstBox);
+	
+	for(var i = 0; i<listDate.length; i++)
+	{
+		var dateBox = document.createElement('div');
+		dateBox.setAttribute("class", "dateBox");
+		dateBox.setAttribute("id", "dateBox"+i);
+		dateRow.appendChild(dateBox);
+		
+		var date = new Date(listDate[i][0]);
+		
+		//document.getElementById("dateBox"+i).innerHTML = month[date.getMonth()]+"<br><p>"+date.getDate()+"</p>"+ weekDays[date.getDay()]+"<br>"+date.getHours()+":"+ date.getMinutes()+"<br>";
+		
+		
+
+		
+		
+		
+		/*date.setMinutes(date.getMinutes()+ listDate[i][1]);
+		document.
+		*/
+
+		
+		
+	}
+	document.getElementById("1234").appendChild(dateRow);
+
 }
 
 
 
 function createParticipants(listParticipants)
 {
-	  for(var i = 0; i < listParticipants.length; i++)
+  for(var i = 0; i < listParticipants.length; i++)
+  {
+	  if(listParticipants[i]["Statut"] != "EnCours")
 	  {
-		  if(listParticipants[i]["Statut"] != "EnCours")
-		  {
-			  createCompletedParticipant(i, listParticipants);
-		  }
-		  else
-		  {
-			  createNewParticipant(i, listParticipants);
-		  
-		  }
+		  createCompletedParticipant(i, listParticipants);
 	  }
+	  else
+	  {
+		  createNewParticipant(i, listParticipants);
+	  }
+  }
 }
 
 //Creates the row of a participant that has confirmed its schedule
 function createCompletedParticipant(i, listParticipants)
 {
-	  var Participantrow = document.createElement('div');
-	  Participantrow.setAttribute("class", "ParticipantRow");
-	  
-	  var participantFirstBox = createParticipantFirstBox(i);
-	  Participantrow.appendChild(participantFirstBox);
-	  
-	  var participantimg = document.createElement('img');
-	  participantimg.setAttribute("src","./Images/particip2.png");
-	  participantFirstBox.appendChild(participantimg);
-	  
-	  var t = document.createTextNode(listParticipants[i]["Nom"]);
-	  participantFirstBox.appendChild(t);
-	  
-	  var participantPenImg = createParticipantPenImg(i);
-	  participantFirstBox.appendChild(participantPenImg);
+	  var Participantrow = createParticipantRow(i, listParticipants);
 	  
 	  document.getElementById("1234").appendChild(Participantrow);
 	  
@@ -87,6 +99,27 @@ function createCompletedParticipant(i, listParticipants)
 		  } 
 		  Participantrow.appendChild(choicebox);
 	  }
+}
+
+function createParticipantRow(i, listParticipants)
+{
+	  var Participantrow = document.createElement('div');
+	  Participantrow.setAttribute("class", "ParticipantRow");
+	  
+	  var participantFirstBox = createParticipantFirstBox(i);
+	  Participantrow.appendChild(participantFirstBox);
+	  
+	  var participantImg = document.createElement('img');
+	  participantImg.setAttribute("src","./Images/particip2.png");
+	  participantFirstBox.appendChild(participantImg);
+	  
+	  var t = document.createTextNode(listParticipants[i]["Nom"]);
+	  participantFirstBox.appendChild(t);
+	  
+	  var participantPenImg = createParticipantPenImg(i);
+	  participantFirstBox.appendChild(participantPenImg);
+	  
+	  return Participantrow;
 }
 
 function createParticipantPenImg(i)
@@ -131,6 +164,22 @@ function createParticipantTickImage()
 //create a row for a participant that has not confirmed his schedule
 function createNewParticipant(i, listParticipants)
 {
+	var newParticipantRow = createNewParticipantRow(i, listParticipants);
+	
+  	document.getElementById("1234").appendChild(newParticipantRow);
+  	
+  	var disp = listParticipants[i]["Disponibilités"];
+  	
+  	for(var j = 0; j < disp.length; j++)
+	{
+  		var checkboxClass = createNewParticipantCheckbox(j, disp)
+  				
+		newParticipantRow.appendChild(checkboxClass);
+	}
+}
+
+function createNewParticipantRow(i, listParticipants)
+{
 	var newParticipantRow = document.createElement('div');
   	newParticipantRow.setAttribute("class", "newParticipantRow");
 
@@ -145,27 +194,8 @@ function createNewParticipant(i, listParticipants)
 	
   	var newParticipantInput  = createNewParticipantNameInput(newParticipantName);
   	newParticipantFirstBox.appendChild(newParticipantInput);
-  	
-  	document.getElementById("1234").appendChild(newParticipantRow);
-  	
-  	var disp = listParticipants[i]["Disponibilités"];
-  	
-  	for(var j = 0; j < disp.length; j++)
-	{
-		var checkboxClass = document.createElement('div');
-		checkboxClass.setAttribute("class", "checkBox");
-		
-		var checkboxInput = document.createElement('input');
-		checkboxInput.setAttribute("type", "checkbox");
-		
-		if(disp[j] == 1)
-			{
-			checkboxInput.setAttribute("checked", true);
-			}
-		checkboxClass.appendChild(checkboxInput);
-		
-		newParticipantRow.appendChild(checkboxClass);
-	}
+
+  	return newParticipantRow;
 }
 
 function createNewParticipantFirstBox()
@@ -191,5 +221,24 @@ function createNewParticipantNameInput(newParticipantName)
   	newParticipantNameInput.setAttribute("value", newParticipantName);
   	
   	return newParticipantNameInput;
+}
+
+function createNewParticipantCheckbox(j, disp)
+{
+	var checkboxClass = document.createElement('div');
+	checkboxClass.setAttribute("class", "checkBox");
+	
+	var checkboxInput = document.createElement('input');
+	checkboxInput.setAttribute("type", "checkbox");
+	checkboxInput.setAttribute("id", "checkbox"+j);
+	
+	if(disp[j] == 1)
+	{
+		checkboxInput.setAttribute("checked", true);
+	}
+	
+	checkboxClass.appendChild(checkboxInput);
+	
+	return checkboxClass;
 }
 
