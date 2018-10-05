@@ -8,6 +8,7 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  var listDate = data["Calendrier"];
 	  
 	  createDates(listDate);
+	  createConfirmedParticipant(listParticipant);
 	  createParticipants(listParticipant);
 	  
 
@@ -21,7 +22,7 @@ function hidePen(e) {
 }
 
 
-
+//Creates a row of dates from the Json file 
 function createDates(listDate)
 {
 	
@@ -51,9 +52,7 @@ function createDates(listDate)
 		
 		
 		
-		/*date.setMinutes(date.getMinutes()+ listDate[i][1]);
-		document.
-		*/
+		//date.setMinutes(date.getMinutes()+ listDate[i][1]);
 
 		
 		
@@ -63,7 +62,65 @@ function createDates(listDate)
 }
 
 
+//Creates a row that verifies the amount of confirmed Participants each day.
+function createConfirmedParticipant(listParticipant)
+{
+	var confirmedParticipantRow = document.createElement('div');
+	confirmedParticipantRow.setAttribute("class", "confirmedParticipantRow")
+	
+	var confirmedParticipantFirstBox = document.createElement('div');
+	confirmedParticipantFirstBox.setAttribute("class", "firstBox");
+	
+	var numberCompletedParticipant = 0;
+	for (var i = 0; i < listParticipant.length; i++)
+	{
+		if (listParticipant[i]["Statut"] != "EnCours")
+		{
+			numberCompletedParticipant++;
+		}
+	}
+	
+	var confirmedParticipantFirstBoxText = document.createTextNode(numberCompletedParticipant+"Participants");
+	confirmedParticipantFirstBox.appendChild(confirmedParticipantFirstBoxText);
+	
+	confirmedParticipantRow.appendChild(confirmedParticipantFirstBox);
+	
+	document.getElementById("1234").appendChild(confirmedParticipantRow);
+	
+	//TODO: figure out why only 1 box is created
+	for (var i = 0; i < listParticipant[0]["Disponibilités"].length; i++)
+	{
+		console.log(listParticipant[0]["Disponibilités"].length);
+		var confirmedParticipantBox = document.createElement('div');
+		confirmedParticipantBox.setAttribute("class", "confirmedBox");
+		
+		var confirmedParticipantTickImg = document.createElement('img');
+		confirmedParticipantTickImg.setAttribute("src", "/Images/tick2.png");
+		
+		confirmedParticipantBox.appendChild(confirmedParticipantTickImg);
+		
+		var confirmedParticipantDate = 0;
+		for (var j = 0; i < listParticipant.length; i++)
+		{
+			if (listParticipant[j]["Disponibilités"][i])
+			{
+				confirmedParticipantDate++;
+			}
+		}
+		var confirmedParticipantNumberText = document.createTextNode(confirmedParticipantDate);
+		
+		confirmedParticipantBox.appendChild(confirmedParticipantNumberText);
+		
 
+	}
+	
+	confirmedParticipantRow.appendChild(confirmedParticipantBox);
+	
+	
+}
+
+
+//Create the rows of Participants that have completed the schedule as well as those that are in the process of completing it. 
 function createParticipants(listParticipants)
 {
   for(var i = 0; i < listParticipants.length; i++)
@@ -82,7 +139,7 @@ function createParticipants(listParticipants)
 //Creates the row of a participant that has confirmed its schedule
 function createCompletedParticipant(i, listParticipants)
 {
-	  var Participantrow = createParticipantRow(i, listParticipants);
+	  var Participantrow = createCompletedParticipantRow(i, listParticipants);
 	  
 	  document.getElementById("1234").appendChild(Participantrow);
 	  
@@ -90,39 +147,39 @@ function createCompletedParticipant(i, listParticipants)
 	  
 	  for(var j = 0; j<disp.length; j++)
 	  {
-		  var choicebox = createParticipantChoiceBox();
+		  var choicebox = createCompletedParticipantChoiceBox();
 	
 		  if(disp[j] == 1)
 		  {
-			  var tickImage = createParticipantTickImage();
+			  var tickImage = createCompletedParticipantTickImage();
 			  choicebox.appendChild(tickImage);
 		  } 
 		  Participantrow.appendChild(choicebox);
 	  }
 }
 
-function createParticipantRow(i, listParticipants)
+function createCompletedParticipantRow(i, listParticipants)
 {
 	  var Participantrow = document.createElement('div');
 	  Participantrow.setAttribute("class", "ParticipantRow");
 	  
-	  var participantFirstBox = createParticipantFirstBox(i);
+	  var participantFirstBox = createCompletedParticipantFirstBox(i);
 	  Participantrow.appendChild(participantFirstBox);
 	  
 	  var participantImg = document.createElement('img');
 	  participantImg.setAttribute("src","./Images/particip2.png");
 	  participantFirstBox.appendChild(participantImg);
 	  
-	  var t = document.createTextNode(listParticipants[i]["Nom"]);
-	  participantFirstBox.appendChild(t);
+	  var completedParticipantName = document.createTextNode(listParticipants[i]["Nom"]);
+	  participantFirstBox.appendChild(completedParticipantName);
 	  
-	  var participantPenImg = createParticipantPenImg(i);
+	  var participantPenImg = createCompletedParticipantPenImg(i);
 	  participantFirstBox.appendChild(participantPenImg);
 	  
 	  return Participantrow;
 }
 
-function createParticipantPenImg(i)
+function createCompletedParticipantPenImg(i)
 {
 	var penImg = document.createElement('img');
 	penImg.setAttribute("class", "pen");
@@ -133,7 +190,7 @@ function createParticipantPenImg(i)
 	return penImg;
 }
 
-function createParticipantFirstBox(i)
+function createCompletedParticipantFirstBox(i)
 {
 	var participantFirstBox = document.createElement('div');
 	participantFirstBox.setAttribute("onmouseover" ,"showPen('pen"+i+"')");
@@ -143,7 +200,7 @@ function createParticipantFirstBox(i)
 	return participantFirstBox;
 }
 
-function createParticipantChoiceBox()
+function createCompletedParticipantChoiceBox()
 {
 	var choicebox = document.createElement('div');
 	choicebox.setAttribute("class", "choiceBox");
@@ -151,7 +208,7 @@ function createParticipantChoiceBox()
 	return choicebox;
 }
 
-function createParticipantTickImage()
+function createCompletedParticipantTickImage()
 {
 	  var tickImage = document.createElement('img');
 	  tickImage.setAttribute("class", "tickImage");
