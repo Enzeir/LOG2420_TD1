@@ -1,11 +1,13 @@
 
-
+var listParticipant;
+var listDate ;
+	  
 fetch("http://127.0.0.1:8080/cal-data.json")
   .then(function(response) { return response.json(); })
   .then(function(data) {
 
-	  var listParticipant = data["Participants"];
-	  var listDate = data["Calendrier"];
+	  listParticipant = data["Participants"];
+	  listDate = data["Calendrier"];
 	  
 	  createDates(listDate);
 	  createConfirmedParticipant(listParticipant);
@@ -45,9 +47,22 @@ function createDates(listDate)
 		dateRow.appendChild(dateBox);
 		
 		var date = new Date(listDate[i][0]);
+		var timeStart = date.getHours();
+		var minutesStart;
+		if (date.getMinutes() < 10)
+			minutesStart = "0"+date.getMinutes();
+		else
+			minutesStart = date.getMinutes();
+			
+			date.setMinutes(date.getMinutes()+ listDate[i][1]);
+		var minutesEnd;
+		if (date.getMinutes() < 10)
+			minutesEnd = "0"+date.getMinutes();
+		else
+			minutesEnd = date.getMinutes();
+			
+		document.getElementById("dateBox"+i).innerHTML = month[date.getMonth()]+"<br><p>"+date.getDate()+"</p>"+ weekDays[date.getDay()]+"<br>"+timeStart+":"+minutesStart+"<br>"+date.getHours()+":"+minutesEnd;
 		
-		document.getElementById("dateBox"+i).innerHTML = month[date.getMonth()]+"<br><p>"+date.getDate()+"</p>"+ weekDays[date.getDay()]+"<br>"+date.getHours()+":"+ date.getMinutes()+"<br>";
-		//date.setMinutes(date.getMinutes()+ listDate[i][1]);
 
 	}
 
@@ -146,8 +161,7 @@ function createCompletedParticipant(i, listParticipants)
 function createCompletedParticipantRow(i, listParticipants)
 {
 	  var Participantrow = document.createElement('div');
-	  Participantrow.setAttribute("class", "ParticipantRow");
-	  
+	  setAttributes(Participantrow,{"class": "ParticipantRow","id": "ParticipantRowId"+i });
 	  var participantFirstBox = createCompletedParticipantFirstBox(i);
 	  Participantrow.appendChild(participantFirstBox);
 	  
@@ -167,11 +181,19 @@ function createCompletedParticipantRow(i, listParticipants)
 function createCompletedParticipantPenImg(i)
 {
 	var penImg = document.createElement('img');
-	setAttributes(penImg,{"class": "pen","id":"pen"+i,"onClick": "fsuyf('participant"+i+"')","src":"./Images/pen.png"});
+	setAttributes(penImg,{"class": "pen","id":"pen"+i,"onClick": "replaceRow('"+i+"')","src":"./Images/pen.png"});
 	
 	return penImg;
 }
-
+function replaceRow(i)
+{
+	var row1 = document.getElementById("ParticipantRowId"+i);
+	createNewParticipant(i, listParticipant);
+	var editRow = document.getElementById("newParticipantRow"+i);
+	var fullboard = document.getElementById("1234");
+	fullboard.replaceChild(editRow, row1);
+	
+}
 function createCompletedParticipantFirstBox(i)
 {
 	var participantFirstBox = document.createElement('div');
@@ -208,8 +230,7 @@ function createNewParticipant(i, listParticipants)
   	
   	for(var j = 0; j < disp.length; j++)
 	{
-  		var checkboxClass = createNewParticipantCheckbox(j, disp)
-  				
+  		var checkboxClass = createNewParticipantCheckbox(j, disp)		
 		newParticipantRow.appendChild(checkboxClass);
 	}
 }
@@ -217,9 +238,8 @@ function createNewParticipant(i, listParticipants)
 function createNewParticipantRow(i, listParticipants)
 {
 	var newParticipantRow = document.createElement('div');
-  	newParticipantRow.setAttribute("class", "newParticipantRow");
+	setAttributes(newParticipantRow,{"class": "newParticipantRow","id": "newParticipantRow"+i });
 
-  	
   	var newParticipantFirstBox = createNewParticipantFirstBox()
   	newParticipantRow.appendChild(newParticipantFirstBox);
   	
