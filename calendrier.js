@@ -11,9 +11,7 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  
 	  createDates(listDate);
 	  createConfirmedParticipant(listParticipant);
-	  createParticipants(listParticipant);
-	  
-
+	  createParticipants(listParticipant); 
   });
 
 function showPen(e) {
@@ -230,7 +228,7 @@ function createNewParticipant(i, listParticipants)
   	
   	for(var j = 0; j < disp.length; j++)
 	{
-  		var checkboxClass = createNewParticipantCheckbox(j, disp)		
+  		var checkboxClass = createNewParticipantCheckbox(i, j, disp)		
 		newParticipantRow.appendChild(checkboxClass);
 	}
 }
@@ -279,13 +277,14 @@ function createNewParticipantNameInput(newParticipantName)
   	return newParticipantNameInput;
 }
 
-function createNewParticipantCheckbox(j, disp)
+function createNewParticipantCheckbox(i, j, disp)
 {
 	var checkboxClass = document.createElement('div');
 	checkboxClass.setAttribute("class", "checkBox");
 	
 	var checkboxInput = document.createElement('input');
-	setAttributes(checkboxInput,{"type": "checkbox","id": "checkbox"+j});
+	checkboxInput.checkes
+	setAttributes(checkboxInput,{"type": "checkbox","id": "checkbox"+i+""+j });
 	
 	if(disp[j] == 1)
 	{
@@ -294,9 +293,20 @@ function createNewParticipantCheckbox(j, disp)
 	
 	checkboxClass.appendChild(checkboxInput);
 	
+	var temp = checkboxInput.checked;
+	checkboxInput.setAttribute("onclick", "updateData('"+i+"', '"+j+"' ,'checkbox"+i+""+j+"')" );
 	return checkboxClass;
 }
-
+function updateData(i, j,id){
+	
+	var temp = document.getElementById(id).checked;
+	if(temp)
+		listParticipant[i]["Disponibilités"][j] = 1;
+	else
+		listParticipant[i]["Disponibilités"][j] = 0;
+		
+	console.log(listParticipant[i]);
+}
 function setAttributes(el, attrs) {
   for(var key in attrs) {
     el.setAttribute(key, attrs[key]);
