@@ -26,7 +26,7 @@ function hidePen(e) {
 function createDates(listDate)
 {
 	
-	var weekDays = ["LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM.", "DIM."];
+	var weekDays = [ "DIM.","LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM."];
 	var month = ["janvier","fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
 	
 	var dateRow = document.createElement('div');
@@ -35,7 +35,8 @@ function createDates(listDate)
 	var dateFirstBox = document.createElement('div');
 	dateFirstBox.setAttribute("class", "firstBox");
 	dateRow.appendChild(dateFirstBox);
-	
+	document.getElementById("1234").appendChild(dateRow);
+
 	for(var i = 0; i<listDate.length; i++)
 	{
 		var dateBox = document.createElement('div');
@@ -45,22 +46,12 @@ function createDates(listDate)
 		
 		var date = new Date(listDate[i][0]);
 		
-		//document.getElementById("dateBox"+i).innerHTML = month[date.getMonth()]+"<br><p>"+date.getDate()+"</p>"+ weekDays[date.getDay()]+"<br>"+date.getHours()+":"+ date.getMinutes()+"<br>";
-		
-		
-
-		
-		
-		
+		document.getElementById("dateBox"+i).innerHTML = month[date.getMonth()]+"<br><p>"+date.getDate()+"</p>"+ weekDays[date.getDay()]+"<br>"+date.getHours()+":"+ date.getMinutes()+"<br>";
 		//date.setMinutes(date.getMinutes()+ listDate[i][1]);
 
-		
-		
 	}
-	document.getElementById("1234").appendChild(dateRow);
 
 }
-
 
 //Creates a row that verifies the amount of confirmed Participants each day.
 function createConfirmedParticipant(listParticipant)
@@ -87,7 +78,6 @@ function createConfirmedParticipant(listParticipant)
 	
 	document.getElementById("1234").appendChild(confirmedParticipantRow);
 	
-	//TODO: figure out why only 1 box is created
 	for (var i = 0; i < listParticipant[0]["Disponibilités"].length; i++)
 	{
 		console.log(listParticipant[0]["Disponibilités"].length);
@@ -100,7 +90,7 @@ function createConfirmedParticipant(listParticipant)
 		confirmedParticipantBox.appendChild(confirmedParticipantTickImg);
 		
 		var confirmedParticipantDate = 0;
-		for (var j = 0; i < listParticipant.length; i++)
+		for (var j = 0; j < listParticipant.length; j++)
 		{
 			if (listParticipant[j]["Disponibilités"][i])
 			{
@@ -108,15 +98,10 @@ function createConfirmedParticipant(listParticipant)
 			}
 		}
 		var confirmedParticipantNumberText = document.createTextNode(confirmedParticipantDate);
-		
 		confirmedParticipantBox.appendChild(confirmedParticipantNumberText);
-		
+		confirmedParticipantRow.appendChild(confirmedParticipantBox);
 
-	}
-	
-	confirmedParticipantRow.appendChild(confirmedParticipantBox);
-	
-	
+	}	
 }
 
 
@@ -182,10 +167,7 @@ function createCompletedParticipantRow(i, listParticipants)
 function createCompletedParticipantPenImg(i)
 {
 	var penImg = document.createElement('img');
-	penImg.setAttribute("class", "pen");
-	penImg.setAttribute("id", "pen"+i);
-	penImg.setAttribute("onClick", "fsuyf('participant"+i+"')");
-	penImg.setAttribute("src","./Images/pen.png");
+	setAttributes(penImg,{"class": "pen","id":"pen"+i,"onClick": "fsuyf('participant"+i+"')","src":"./Images/pen.png"});
 	
 	return penImg;
 }
@@ -193,9 +175,7 @@ function createCompletedParticipantPenImg(i)
 function createCompletedParticipantFirstBox(i)
 {
 	var participantFirstBox = document.createElement('div');
-	participantFirstBox.setAttribute("onmouseover" ,"showPen('pen"+i+"')");
-	participantFirstBox.setAttribute("onmouseout" ,"hidePen('pen"+i+"')");
-	participantFirstBox.setAttribute("class", "firstBox");
+	setAttributes(participantFirstBox,{"class": "firstBox","onmouseover" :"showPen('pen"+i+"')","onmouseout" :"hidePen('pen"+i+"')"});
 	  
 	return participantFirstBox;
 }
@@ -211,9 +191,8 @@ function createCompletedParticipantChoiceBox()
 function createCompletedParticipantTickImage()
 {
 	  var tickImage = document.createElement('img');
-	  tickImage.setAttribute("class", "tickImage");
-	  tickImage.setAttribute("src", "./Images/tick1.png");
-	  
+	  setAttributes(tickImage,{"class": "tickImage","src": "./Images/tick1.png"});
+
 	  return tickImage;
 }
 
@@ -286,8 +265,7 @@ function createNewParticipantCheckbox(j, disp)
 	checkboxClass.setAttribute("class", "checkBox");
 	
 	var checkboxInput = document.createElement('input');
-	checkboxInput.setAttribute("type", "checkbox");
-	checkboxInput.setAttribute("id", "checkbox"+j);
+	setAttributes(checkboxInput,{"type": "checkbox","id": "checkbox"+j});
 	
 	if(disp[j] == 1)
 	{
@@ -299,3 +277,8 @@ function createNewParticipantCheckbox(j, disp)
 	return checkboxClass;
 }
 
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
