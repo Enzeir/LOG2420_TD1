@@ -15,6 +15,9 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  createConfirmedParticipant(listParticipant);
 	  createParticipants(listParticipant); 
     });
+    
+    
+    
 //functions that swiches the view we have when pressing the button at the top of the page
 function switchViewToCalendar()
 {
@@ -201,7 +204,7 @@ function createCompletedParticipantRow(i, listParticipants)
 	  participantImg.setAttribute("src","./Images/particip2.png");
 	  participantFirstBox.appendChild(participantImg);
 	  
-	  var completedParticipantName = document.createTextNode(listParticipants[i]["Nom"]);
+	  var completedParticipantName = document.createTextNode("		"+listParticipants[i]["Nom"]);
 	  participantFirstBox.appendChild(completedParticipantName);
 	  
 	  var participantPenImg = createCompletedParticipantPenImg(i);
@@ -264,6 +267,7 @@ function createCompletedParticipantChoiceBox(i, j)
 	var choicebox = document.createElement('div');
 	choicebox.setAttribute("class", "choiceBox");
 	var nom = listParticipant[i]["Nom"];
+	
 	//create a tooltip for the choicebox
 	var tooltipContainer = document.createElement('div');
 	tooltipContainer.setAttribute("class", "tooltipContainer");
