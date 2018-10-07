@@ -1,7 +1,9 @@
 
 var listParticipant;
 var listDate ;
-	  
+
+var indexParticipantEnCours;
+
 fetch("http://127.0.0.1:8080/cal-data.json")
   .then(function(response) { return response.json(); })
   .then(function(data) {
@@ -12,19 +14,34 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  createDates(listDate);
 	  createConfirmedParticipant(listParticipant);
 	  createParticipants(listParticipant); 
+	  console.log(document.getElementById("tests").childNodes);
     });
-
+//functions that swiches the view we have when pressing the button at the top of the page
 function switchViewToCalendar()
 {
+		setIndexParticipantEnCours();
+		updateCalendarCheckbox();
 		document.getElementById("1234").style.display ="none";
         document.getElementById("calendar").style.display = "flex";
 }
+function setIndexParticipantEnCours()
+{
+	for (var i = 0; i < listParticipant.length; i++)
+	{
+		if (listParticipant[i]["Statut"]=="EnCours")
+		{
+			indexParticipantEnCours = i;
+			break;
+		}
+	}
+}
 function switchViewToTable()
 {	
-		document.getElementById("1234").style.display = "flex";
-		document.getElementById("calendar").style.display = "none";
+	updateTableCheckbox();
+	document.getElementById("1234").style.display = "flex";
+	document.getElementById("calendar").style.display = "none";
 }
-
+//functions that controls the render of the pen image when hovering over a participant's name
 function showPen(e) {
   document.getElementById(e).style.visibility="visible";
 }
@@ -312,22 +329,55 @@ function createNewParticipantCheckbox(i, j, disp)
 	checkboxClass.appendChild(checkboxInput);
 	
 	var temp = checkboxInput.checked;
-	checkboxInput.setAttribute("onclick", "updateData('"+i+"', '"+j+"' ,'checkbox"+i+""+j+"')" );
+	checkboxInput.setAttribute("onclick", "updateDataFromTable('"+i+"', '"+j+"' ,'checkbox"+i+""+j+"')" );
 	return checkboxClass;
 }
 
 //Function that update the values of the data that come from json file
-function updateData(i, j, id){
+function updateDataFromTable(i, j, id)
+{
 	
 	var temp = document.getElementById(id).checked;
 	if(temp)
 		listParticipant[i]["Disponibilités"][j] = 1;
 	else
-		listParticipant[i]["Disponibilités"][j] = 0;
-		
+		listParticipant[i]["Disponibilités"][j] = 0;		
 
 }
 
+function UpdateDataFromCalendar(j, id)
+{
+	var temp = document.getElementById(id).checked
+	if (temp)
+	{
+		listParticipant[indexParticipantEnCours]["Disponibilités"][j] = 1;
+	}
+	else
+	{
+		listParticipant[indexParticipantEnCours]["Disponibilités"][j] = 0;
+	}
+}
+
+function updateCalendarCheckbox()
+{
+	for (var i = 0; i < listParticipant[indexParticipantEnCours]["Disponibilités"].length; i++)
+	{
+		if (listParticipant[indexParticipantEnCours]["Disponibilités"][i] == 1)
+			document.getElementById("calendarCheckbox"+i).checked = true;
+		else
+			document.getElementById("calendarCheckbox"+i).checked = false;
+	}
+}
+function updateTableCheckbox()
+{
+	for (var i = 0; i < listParticipant[indexParticipantEnCours]["Disponibilités"].length; i++)
+	{
+		if (listParticipant[indexParticipantEnCours]["Disponibilités"][i] == 1)
+			document.getElementById("checkbox"+indexParticipantEnCours+i).checked = true;
+		else
+			document.getElementById("checkbox"+indexParticipantEnCours+i).checked = false;
+	}
+}
 function setAttributes(el, attrs)
 {
     for (var key in attrs)

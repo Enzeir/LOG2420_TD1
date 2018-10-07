@@ -17,7 +17,9 @@
 			<input type="button" onclick="switchViewToCalendar()" value="Calendrier"/>
 	</div>
 </div>
+
 <div class="fullBoard" id = "1234"></div>
+
 <div class="calendarBoard" id="calendar">
     <div class="calendarNameInputRow">
         <div class="calendarNameInput">
@@ -139,12 +141,13 @@
         </div>
 
 
-        <div class="calendarDateColumn">
+        <div class="calendarDateColumn" id="tests">
             <div class="calendarDateFirstBox">
                 <div class="calendarDate">
                     27 Mon.
                 </div>
             </div>
+            <div class="timeBox">tets</div>
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="timeBox"></div>
@@ -154,9 +157,9 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="timeBox"></div>
-            <div class="timeBox"></div>
+            
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox0" onclick="UpdateDataFromCalendar('0','calendarCheckbox0')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -164,8 +167,8 @@
             </div>
             <div class="timeBox"></div>
             <div class="timeBox"></div>
-            <div class="calendarInputBox">
-                <input type="checkbox" />
+            <div class="calendarInputBox" >
+                <input type="checkbox" id="calendarCheckbox1" onclick="UpdateDataFromCalendar('1','calendarCheckbox1')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -198,7 +201,7 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox2" onclick="UpdateDataFromCalendar('2','calendarCheckbox2')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -207,7 +210,7 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox3" onclick="UpdateDataFromCalendar('3','calendarCheckbox3')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -239,7 +242,7 @@
             <div class="timeBox"></div>
 
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox4" onclick="UpdateDataFromCalendar('4','calendarCheckbox4')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -251,7 +254,7 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox5" onclick="UpdateDataFromCalendar('5','calendarCheckbox5')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -284,7 +287,7 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox6" onclick="UpdateDataFromCalendar('6','calendarCheckbox6')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -320,7 +323,7 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox7" onclick="UpdateDataFromCalendar('7','calendarCheckbox7')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
@@ -329,7 +332,7 @@
             <div class="timeBox"></div>
             <div class="timeBox"></div>
             <div class="calendarInputBox">
-                <input type="checkbox" />
+                <input type="checkbox" id="calendarCheckbox8" onclick="UpdateDataFromCalendar('8','calendarCheckbox8')"/>
                 <div class="calendarTickBox">
                     <img class="calendarTickBox" src="./Images/tick3.png" />
                     <b>3</b>
