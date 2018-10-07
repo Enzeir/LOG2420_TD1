@@ -14,9 +14,21 @@ img{
 	border: 1px solid grey;
 	border-collapse: collapse;
 }
-
-.calendarBoard{
+.inputBox{
 	display: flex;
+	width: 867px;
+	flex-direction: row;
+	border: 1px solid grey;
+	border-collapse: collapse;
+	justify-content : center;
+}
+.viewButton{
+	width: 90px;
+	border: 1px solid grey;
+	border-collapse: collapse;
+}
+.calendarBoard{
+	display: none;
 	width: 867px;
 	flex-direction: column;
 	border: 1px solid grey;

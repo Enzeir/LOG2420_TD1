@@ -13,6 +13,18 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  createConfirmedParticipant(listParticipant);
 	  createParticipants(listParticipant); 
   });
+function switchViewToCalendar(){
+	
+		document.getElementById("1234").style.display ="none";
+		document.getElementById("calendar").style.display = "flex";
+}
+function switchViewToTable()
+{
+	
+		console.log("else");	
+		document.getElementById("1234").style.display = "flex";
+		document.getElementById("calendar").style.display = "none";
+	}
 
 function showPen(e) {
   document.getElementById(e).style.visibility="visible";
