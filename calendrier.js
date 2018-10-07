@@ -1,7 +1,6 @@
 
 var listParticipant;
 var listDate ;
-
 var indexParticipantEnCours;
 
 fetch("http://127.0.0.1:8080/cal-data.json")
@@ -10,50 +9,15 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 
 	  listParticipant = data["Participants"];
 	  listDate = data["Calendrier"];
-	  
-	  createDates(listDate);
-	  createConfirmedParticipant(listParticipant);
-	  createParticipants(listParticipant); 
-    });
-    
-    
-    
-//functions that swiches the view we have when pressing the button at the top of the page
-function switchViewToCalendar()
-{
-		setIndexParticipantEnCours();
-		updateCalendarCheckbox();
-		document.getElementById("1234").style.display ="none";
-        document.getElementById("calendar").style.display = "flex";
-}
-function setIndexParticipantEnCours()
-{
-	for (var i = 0; i < listParticipant.length; i++)
-	{
-		if (listParticipant[i]["Statut"]=="EnCours")
-		{
-			indexParticipantEnCours = i;
-			break;
-		}
-	}
-}
-function switchViewToTable()
-{	
-	updateTableCheckbox();
-	document.getElementById("1234").style.display = "flex";
-	document.getElementById("calendar").style.display = "none";
-}
-//functions that controls the render of the pen image when hovering over a participant's name
-function showPen(e) {
-  document.getElementById(e).style.visibility="visible";
-}
-function hidePen(e) {
-  document.getElementById(e).style.visibility="hidden";
-}
-
-
-//Creates a row of dates from the Json file 
-function createDates(listDate)
+	  //On creer la ligne des dates 
+	  createDates();
+	  //On creer la ligne des participant confirmer
+	  createConfirmedParticipantRow();
+	  //On creer les lignes de chaque participant
+	  createParticipants(); 
+});
+       
+function createDates()
 {
 	var weekDays = [ "DIM.","LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM."];
 	var month = ["janvier","fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
@@ -69,8 +33,7 @@ function createDates(listDate)
 	for(var i = 0; i<listDate.length; i++)
 	{
 		var dateBox = document.createElement('div');
-		dateBox.setAttribute("class", "dateBox");
-		dateBox.setAttribute("id", "dateBox"+i);
+		setAttributes(dateBox, {"class": "dateBox","id": "dateBox"+i} );
 		dateRow.appendChild(dateBox);
 		
 		var date = new Date(listDate[i][0]);
@@ -98,13 +61,11 @@ function createDates(listDate)
         }
 
         document.getElementById("dateBox" + i).innerHTML =
-            month[date.getMonth()] + "<br><p>" + date.getDate() + "</p>" + weekDays[date.getDay()] + "<br>" + timeStart + ":" + minutesStart + "<br>" + date.getHours() + ":" + minutesEnd;
+            month[date.getMonth()] + "<br><p><b>" + date.getDate() + "</b></p>" + weekDays[date.getDay()] + "<br>" + timeStart + ":" + minutesStart + "<br>" + date.getHours() + ":" + minutesEnd;
 	}
-
 }
-
 //Creates a row that verifies the amount of confirmed Participants each day.
-function createConfirmedParticipant(listParticipant)
+function createConfirmedParticipantRow()
 {
 	var confirmedParticipantRow = document.createElement('div');
 	confirmedParticipantRow.setAttribute("class", "confirmedParticipantRow")
@@ -121,7 +82,7 @@ function createConfirmedParticipant(listParticipant)
 		}
 	}
 	
-	var confirmedParticipantFirstBoxText = document.createTextNode(numberCompletedParticipant+"Participants");
+	var confirmedParticipantFirstBoxText = document.createTextNode(numberCompletedParticipant+" Participants");
 	confirmedParticipantFirstBox.appendChild(confirmedParticipantFirstBoxText);
 	
 	confirmedParticipantRow.appendChild(confirmedParticipantFirstBox);
@@ -154,19 +115,18 @@ function createConfirmedParticipant(listParticipant)
 	}	
 }
 
-
 //Create the rows of Participants that have completed the schedule as well as those that are in the process of completing it. 
-function createParticipants(listParticipants)
+function createParticipants()
 {
-  for(var i = 0; i < listParticipants.length; i++)
+  for(var i = 0; i < listParticipant.length; i++)
   {
-	  if(listParticipants[i]["Statut"] != "EnCours")
+	  if(listParticipant[i]["Statut"] != "EnCours")
 	  {
-		  createCompletedParticipant(i, listParticipants);
+		  createCompletedParticipant(i);
 	  }
 	  else
 	  {
-		  createNewParticipant(i, listParticipants);
+		  createNewParticipant(i, listParticipant);
 	  }
   }
 }
@@ -174,26 +134,27 @@ function createParticipants(listParticipants)
 //Creates the row of a participant that has confirmed its schedule
 function createCompletedParticipant(i, listParticipants)
 {
-	  var Participantrow = createCompletedParticipantRow(i, listParticipants);
-	  
-	  document.getElementById("1234").appendChild(Participantrow);
-	  
-	  var disp = listParticipants[i]["Disponibilités"];
-	  
-	  for(var j = 0; j<disp.length; j++)
+  var Participantrow = createCompletedParticipantRow(i);
+  
+  document.getElementById("1234").appendChild(Participantrow);
+  
+  var disp = listParticipant[i]["Disponibilités"];
+  
+  for(var j = 0; j<disp.length; j++)
+  {
+	  var choicebox = createCompletedParticipantChoiceBox(i, j);
+
+	  if(disp[j] == 1)
 	  {
-		  var choicebox = createCompletedParticipantChoiceBox(i, j);
-	
-		  if(disp[j] == 1)
-		  {
-			  var tickImage = createCompletedParticipantTickImage();
-			  choicebox.appendChild(tickImage);
-		  } 
-		  Participantrow.appendChild(choicebox);
-	  }
+		  var tickImage = createCompletedParticipantTickImage();
+		  choicebox.appendChild(tickImage);
+	  } 
+	  Participantrow.appendChild(choicebox);
+  }
 }
 
-function createCompletedParticipantRow(i, listParticipants)
+/* Cette fonction creer un div row qui contient le firstBox(image + nom du participant) et le retourn*/
+function createCompletedParticipantRow(i)
 {
 	  var Participantrow = document.createElement('div');
 	  setAttributes(Participantrow,{"class": "ParticipantRow","id": "ParticipantRowId"+i });
@@ -204,7 +165,7 @@ function createCompletedParticipantRow(i, listParticipants)
 	  participantImg.setAttribute("src","./Images/particip2.png");
 	  participantFirstBox.appendChild(participantImg);
 	  
-	  var completedParticipantName = document.createTextNode("		"+listParticipants[i]["Nom"]);
+	  var completedParticipantName = document.createTextNode(listParticipant[i]["Nom"]);
 	  participantFirstBox.appendChild(completedParticipantName);
 	  
 	  var participantPenImg = createCompletedParticipantPenImg(i);
@@ -212,33 +173,10 @@ function createCompletedParticipantRow(i, listParticipants)
 	  
 	  return Participantrow;
 }
-
-function createCompletedParticipantPenImg(i)
-{
-	var penImg = document.createElement('img');
-	setAttributes(penImg,{"class": "pen","id":"pen"+i,"onClick": "replaceRow('"+i+"')","src":"./Images/pen.png"});
+/*cette fonction creer le tooltip pour chaque disponibilete pour un participant*/
+function createToolTip(i,j){
 	
-	return penImg;
-}
-function replaceRow(i)
-{
-	var row1 = document.getElementById("ParticipantRowId"+i);
-	createNewParticipant(i, listParticipant);
-	var editRow = document.getElementById("newParticipantRow"+i);
-	var fullboard = document.getElementById("1234");
-	fullboard.replaceChild(editRow, row1);
-	
-}
-function createCompletedParticipantFirstBox(i)
-{
-	var participantFirstBox = document.createElement('div');
-	setAttributes(participantFirstBox,{"class": "firstBox","onmouseover" :"showPen('pen"+i+"')","onmouseout" :"hidePen('pen"+i+"')"});
-	  
-	return participantFirstBox;
-}
-
-function createCompletedParticipantChoiceBox(i, j)
-{
+	var nom = listParticipant[i]["Nom"];
 	var weekDays = [ "DIM.","LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM."];
 	var month = ["janvier","fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
 	var date = new Date(listDate[j][0]);
@@ -264,10 +202,6 @@ function createCompletedParticipantChoiceBox(i, j)
         {
             minutesEnd = date.getMinutes();
         }
-	var choicebox = document.createElement('div');
-	choicebox.setAttribute("class", "choiceBox");
-	var nom = listParticipant[i]["Nom"];
-	
 	//create a tooltip for the choicebox
 	var tooltipContainer = document.createElement('div');
 	tooltipContainer.setAttribute("class", "tooltipContainer");
@@ -275,16 +209,17 @@ function createCompletedParticipantChoiceBox(i, j)
 	var tootipDateContainer = document.createElement('div');
 	tootipDateContainer.setAttribute("class", "tootipDateContainer");
 	
+	/*tooltipDateText1 pour la date*/
 	var tooltipDateText1 = document.createElement('div');
 	tooltipDateText1.setAttribute("class", "tooltipDateText");
 	tooltipDateText1.setAttribute("id", "tooltipDateText"+i+j);
 	tootipDateContainer.appendChild(tooltipDateText1);
-	tooltipDateText1.innerHTML = month[date.getMonth()] + "<br>"+ date.getDate()+ "<br>"+ weekDays[date.getDay()]  ; 
+	tooltipDateText1.innerHTML = month[date.getMonth()] + "<br><br>"+ date.getDate()+ "<br><br>"+ weekDays[date.getDay()]  ; 
 		
-		
+	/*tooltipDateText2 pour les heures*/
 	var tooltipDateText2 = document.createElement('div');
 	tooltipDateText2.setAttribute("class", "tooltipDateText");
-		tooltipDateText2.innerHTML = timeStart + ":" + minutesStart + "<br>" + date.getHours() + ":" + minutesEnd;
+		tooltipDateText2.innerHTML = timeStart + ":" + minutesStart + "<br><br>" + date.getHours() + ":" + minutesEnd;
 	tootipDateContainer.appendChild(tooltipDateText2);
 	tooltipContainer.appendChild(tootipDateContainer);
 	
@@ -293,25 +228,74 @@ function createCompletedParticipantChoiceBox(i, j)
 	
 	var disp = listParticipant[i]["Disponibilités"];
 	var text ;
+	
 	if (disp[j] == 1)
 		text = "A vote << oui >>";
 	else
 		text = " N'a pas voter pour cela";
+		
 	tooltipParticipantStatus.innerHTML= nom + "<br>" + text;
-
 	tooltipContainer.appendChild(tooltipParticipantStatus);
-	choicebox.appendChild(tooltipContainer);
+	return tooltipContainer;
+}
+/*cette fonction creer la ligne d'un participant confirme avec ces disponibilite */
+function createCompletedParticipantChoiceBox(i, j)
+{
+
+	var choicebox = document.createElement('div');
+	choicebox.setAttribute("class", "choiceBox");
 	
+	tooltipContainer = createToolTip(i,j);
+
+	choicebox.appendChild(tooltipContainer);
 	
 	return choicebox;
 }
-
+/* cette fonction creer l'image du crayon et la rettourne dans un div*/
+function createCompletedParticipantPenImg(i)
+{
+	var penImg = document.createElement('img');
+	setAttributes(penImg,{"class": "pen","id":"pen"+i,"onClick": "replaceRow('"+i+"')","src":"./Images/pen.png"});
+	
+	return penImg;
+}
+/*cette fonction creer le premier Box et le retourne dans un div*/
+function createCompletedParticipantFirstBox(i)
+{
+	var participantFirstBox = document.createElement('div');
+	setAttributes(participantFirstBox,{"class": "firstBox","onmouseover" :"showPen('pen"+i+"')","onmouseout" :"hidePen('pen"+i+"')"});
+	  
+	return participantFirstBox;
+}
+/*cette function creer le div qui va contenir l'image tick et le retourne*/
 function createCompletedParticipantTickImage()
 {
 	  var tickImage = document.createElement('img');
 	  setAttributes(tickImage,{"class": "tickImage","src": "./Images/tick1.png"});
 
 	  return tickImage;
+}
+
+/*setIndexParticipantEnCours cette fonction est utilise pour set le 
+ * index tu participant ayant un statut encours pour mettre a jours les checkboxes*/
+function setIndexParticipantEnCours()
+{
+	for (var i = 0; i < listParticipant.length; i++)
+	{
+		if (listParticipant[i]["Statut"]=="EnCours")
+		{
+			indexParticipantEnCours = i;
+			break;
+		}
+	}
+}
+
+//functions that controls the render of the pen image when hovering over a participant's name
+function showPen(e) {
+  document.getElementById(e).style.visibility="visible";
+}
+function hidePen(e) {
+  document.getElementById(e).style.visibility="hidden";
 }
 
 
@@ -330,7 +314,7 @@ function createNewParticipant(i, listParticipants)
 		newParticipantRow.appendChild(checkboxClass);
 	}
 }
-
+/* Cette fonction creer un div row qui contient le firstBox(image + nom du participant) et le retourn*/
 function createNewParticipantRow(i, listParticipants)
 {
 	var newParticipantRow = document.createElement('div');
@@ -349,21 +333,20 @@ function createNewParticipantRow(i, listParticipants)
 
   	return newParticipantRow;
 }
-
-function createNewParticipantFirstBox()
-{
-  	var newParticipantFirstBox = document.createElement('div');
-  	newParticipantFirstBox.setAttribute("class", "firstBox");
-  	
-  	return newParticipantFirstBox;
-}
-
+/*fonction qui creer un div contenant l'image partticip1*/
 function createNewParticipantImg()
 {
 	  var participantimg = document.createElement('img');
 	  participantimg.setAttribute("src","./Images/particip1.png");
 	  
 	  return participantimg;
+}
+function createNewParticipantFirstBox()
+{
+  	var newParticipantFirstBox = document.createElement('div');
+  	newParticipantFirstBox.setAttribute("class", "firstBox");
+  	
+  	return newParticipantFirstBox;
 }
 
 function createNewParticipantNameInput(newParticipantName)
@@ -396,7 +379,38 @@ function createNewParticipantCheckbox(i, j, disp)
 	return checkboxClass;
 }
 
-//Function that update the values of the data that come from json file
+
+
+//functions that swiches the view we have when pressing the button at the top of the page
+function switchViewToCalendar()
+{
+	setIndexParticipantEnCours();
+	updateCalendarCheckbox();
+	document.getElementById("1234").style.display ="none";
+	document.getElementById("calendar").style.display = "flex";
+}
+function switchViewToTable()
+{	
+	updateTableCheckbox();
+	document.getElementById("1234").style.display = "flex";
+	document.getElementById("calendar").style.display = "none";
+}
+/*cette fonction est utiliser par le pen pour qu'on puisse modifier les disponibilite d'un participant
+ * mais apres quelque verification, on a compris qu'il ne fallait pas implementet la fonctionalite du pen
+ * alors on la laisser ca la completer. Mais si vous clicker sur le crayon vous pourais changer les disponibilite d'un participant 
+ * sans les save*/
+function replaceRow(i)
+{
+	var row1 = document.getElementById("ParticipantRowId"+i);
+	createNewParticipant(i, listParticipant);
+	var editRow = document.getElementById("newParticipantRow"+i);
+	var fullboard = document.getElementById("1234");
+	fullboard.replaceChild(editRow, row1);
+	
+}
+
+
+//les deux fonction suivante update la structure de donnee lorsque un checkbox est clicker
 function updateDataFromTable(i, j, id)
 {
 	
@@ -407,7 +421,6 @@ function updateDataFromTable(i, j, id)
 		listParticipant[i]["Disponibilités"][j] = 0;		
 
 }
-
 function UpdateDataFromCalendar(j, id)
 {
 	var temp = document.getElementById(id).checked
@@ -420,6 +433,7 @@ function UpdateDataFromCalendar(j, id)
 		listParticipant[indexParticipantEnCours]["Disponibilités"][j] = 0;
 	}
 }
+/*cette fonction est utiliser pour mettre a jours de la base de donne apres quelle soit modifier par la vue table*/
 
 function updateCalendarCheckbox()
 {
@@ -431,6 +445,8 @@ function updateCalendarCheckbox()
 			document.getElementById("calendarCheckbox"+i).checked = false;
 	}
 }
+/*cette fonction est utiliser pour mettre a jours de la base de donne apres quelle soit modifier par la vue calendar*/
+
 function updateTableCheckbox()
 {
 	for (var i = 0; i < listParticipant[indexParticipantEnCours]["Disponibilités"].length; i++)
@@ -441,6 +457,7 @@ function updateTableCheckbox()
 			document.getElementById("checkbox"+indexParticipantEnCours+i).checked = false;
 	}
 }
+/*cette fonction est utiliser pour set plusieur attribut en en un seul ligne. (elle a etait trouver sut internet*/
 function setAttributes(el, attrs)
 {
     for (var key in attrs)
