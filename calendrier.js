@@ -12,19 +12,18 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  createDates(listDate);
 	  createConfirmedParticipant(listParticipant);
 	  createParticipants(listParticipant); 
-  });
-function switchViewToCalendar(){
-	
+    });
+
+function switchViewToCalendar()
+{
 		document.getElementById("1234").style.display ="none";
-		document.getElementById("calendar").style.display = "flex";
+        document.getElementById("calendar").style.display = "flex";
 }
 function switchViewToTable()
-{
-	
-		console.log("else");	
+{	
 		document.getElementById("1234").style.display = "flex";
 		document.getElementById("calendar").style.display = "none";
-	}
+}
 
 function showPen(e) {
   document.getElementById(e).style.visibility="visible";
@@ -37,7 +36,6 @@ function hidePen(e) {
 //Creates a row of dates from the Json file 
 function createDates(listDate)
 {
-	
 	var weekDays = [ "DIM.","LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM."];
 	var month = ["janvier","fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
 	
@@ -59,21 +57,29 @@ function createDates(listDate)
 		var date = new Date(listDate[i][0]);
 		var timeStart = date.getHours();
 		var minutesStart;
-		if (date.getMinutes() < 10)
-			minutesStart = "0"+date.getMinutes();
-		else
-			minutesStart = date.getMinutes();
-			
-			date.setMinutes(date.getMinutes()+ listDate[i][1]);
-		var minutesEnd;
-		if (date.getMinutes() < 10)
-			minutesEnd = "0"+date.getMinutes();
-		else
-			minutesEnd = date.getMinutes();
-			
-		document.getElementById("dateBox"+i).innerHTML = month[date.getMonth()]+"<br><p>"+date.getDate()+"</p>"+ weekDays[date.getDay()]+"<br>"+timeStart+":"+minutesStart+"<br>"+date.getHours()+":"+minutesEnd;
-		
+        if (date.getMinutes() < 10)
+        {
+            minutesStart = "0" + date.getMinutes();
+        }
+        else
+        {
+            minutesStart = date.getMinutes();
+        }
 
+		date.setMinutes(date.getMinutes()+ listDate[i][1]);
+        var minutesEnd;
+
+        if (date.getMinutes() < 10)
+        {
+            minutesEnd = "0" + date.getMinutes();
+        }
+        else
+        {
+            minutesEnd = date.getMinutes();
+        }
+
+        document.getElementById("dateBox" + i).innerHTML =
+            month[date.getMonth()] + "<br><p>" + date.getDate() + "</p>" + weekDays[date.getDay()] + "<br>" + timeStart + ":" + minutesStart + "<br>" + date.getHours() + ":" + minutesEnd;
 	}
 
 }
@@ -105,7 +111,7 @@ function createConfirmedParticipant(listParticipant)
 	
 	for (var i = 0; i < listParticipant[0]["Disponibilités"].length; i++)
 	{
-		console.log(listParticipant[0]["Disponibilités"].length);
+
 		var confirmedParticipantBox = document.createElement('div');
 		confirmedParticipantBox.setAttribute("class", "confirmedBox");
 		
@@ -309,7 +315,9 @@ function createNewParticipantCheckbox(i, j, disp)
 	checkboxInput.setAttribute("onclick", "updateData('"+i+"', '"+j+"' ,'checkbox"+i+""+j+"')" );
 	return checkboxClass;
 }
-function updateData(i, j,id){
+
+//Function that update the values of the data that come from json file
+function updateData(i, j, id){
 	
 	var temp = document.getElementById(id).checked;
 	if(temp)
@@ -317,10 +325,13 @@ function updateData(i, j,id){
 	else
 		listParticipant[i]["Disponibilités"][j] = 0;
 		
-	console.log(listParticipant[i]);
+
 }
-function setAttributes(el, attrs) {
-  for(var key in attrs) {
-    el.setAttribute(key, attrs[key]);
-  }
+
+function setAttributes(el, attrs)
+{
+    for (var key in attrs)
+    {
+        el.setAttribute(key, attrs[key]);
+    }
 }
