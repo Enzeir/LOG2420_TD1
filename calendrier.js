@@ -296,7 +296,6 @@ function createCompletedParticipantChoiceBox(i, j)
 	tooltipParticipantStatus.innerHTML= nom + "<br>" + text;
 
 	tooltipContainer.appendChild(tooltipParticipantStatus);
-	
 	choicebox.appendChild(tooltipContainer);
 	
 	

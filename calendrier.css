@@ -216,8 +216,8 @@ input[type=checkbox] {
     padding: 5px 0;
 
     /* Position the tooltip */
+    transform: translate(-35px, -210px);
     position: absolute;
-    top: 5px;
     z-index: 1;
 }
 
@@ -234,7 +234,7 @@ input[type=checkbox] {
 
 .tooltipDateText{
 	display: flex;
-		align-items: center;
+	align-items: center;
 	justify-content: center;
 	height: 100%;
 	width: 50%;
