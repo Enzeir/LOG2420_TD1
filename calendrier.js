@@ -14,7 +14,6 @@ fetch("http://127.0.0.1:8080/cal-data.json")
 	  createDates(listDate);
 	  createConfirmedParticipant(listParticipant);
 	  createParticipants(listParticipant); 
-	  console.log(document.getElementById("tests").childNodes);
     });
 //functions that swiches the view we have when pressing the button at the top of the page
 function switchViewToCalendar()
@@ -180,7 +179,7 @@ function createCompletedParticipant(i, listParticipants)
 	  
 	  for(var j = 0; j<disp.length; j++)
 	  {
-		  var choicebox = createCompletedParticipantChoiceBox();
+		  var choicebox = createCompletedParticipantChoiceBox(i, j);
 	
 		  if(disp[j] == 1)
 		  {
@@ -235,10 +234,71 @@ function createCompletedParticipantFirstBox(i)
 	return participantFirstBox;
 }
 
-function createCompletedParticipantChoiceBox()
+function createCompletedParticipantChoiceBox(i, j)
 {
+	var weekDays = [ "DIM.","LUN.","MAR.", "MER.", "JEU.", "VEN.", "SAM."];
+	var month = ["janvier","fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
+	var date = new Date(listDate[j][0]);
+	var timeStart = date.getHours();
+		var minutesStart;
+        if (date.getMinutes() < 10)
+        {
+            minutesStart = "0" + date.getMinutes();
+        }
+        else
+        {
+            minutesStart = date.getMinutes();
+        }
+
+		date.setMinutes(date.getMinutes()+ listDate[j][1]);
+        var minutesEnd;
+
+        if (date.getMinutes() < 10)
+        {
+            minutesEnd = "0" + date.getMinutes();
+        }
+        else
+        {
+            minutesEnd = date.getMinutes();
+        }
 	var choicebox = document.createElement('div');
 	choicebox.setAttribute("class", "choiceBox");
+	var nom = listParticipant[i]["Nom"];
+	//create a tooltip for the choicebox
+	var tooltipContainer = document.createElement('div');
+	tooltipContainer.setAttribute("class", "tooltipContainer");
+	
+	var tootipDateContainer = document.createElement('div');
+	tootipDateContainer.setAttribute("class", "tootipDateContainer");
+	
+	var tooltipDateText1 = document.createElement('div');
+	tooltipDateText1.setAttribute("class", "tooltipDateText");
+	tooltipDateText1.setAttribute("id", "tooltipDateText"+i+j);
+	tootipDateContainer.appendChild(tooltipDateText1);
+	tooltipDateText1.innerHTML = month[date.getMonth()] + "<br>"+ date.getDate()+ "<br>"+ weekDays[date.getDay()]  ; 
+		
+		
+	var tooltipDateText2 = document.createElement('div');
+	tooltipDateText2.setAttribute("class", "tooltipDateText");
+		tooltipDateText2.innerHTML = timeStart + ":" + minutesStart + "<br>" + date.getHours() + ":" + minutesEnd;
+	tootipDateContainer.appendChild(tooltipDateText2);
+	tooltipContainer.appendChild(tootipDateContainer);
+	
+	var tooltipParticipantStatus = document.createElement('div');
+	tooltipParticipantStatus.setAttribute("class", "tooltipParticipantStatus");
+	
+	var disp = listParticipant[i]["Disponibilités"];
+	var text ;
+	if (disp[j] == 1)
+		text = "A vote << oui >>";
+	else
+		text = " N'a pas voter pour cela";
+	tooltipParticipantStatus.innerHTML= nom + "<br>" + text;
+
+	tooltipContainer.appendChild(tooltipParticipantStatus);
+	
+	choicebox.appendChild(tooltipContainer);
+	
 	
 	return choicebox;
 }

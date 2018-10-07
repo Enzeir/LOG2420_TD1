@@ -201,20 +201,56 @@ input[type=checkbox] {
 }
 
 
-.choiceBox .tooltiptext {
+.choiceBox .tooltipContainer {
+    box-shadow: 0px 0px 10px grey;
     visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
+    min-width: 146px;
+    
+    height: 195px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
 
     /* Position the tooltip */
     position: absolute;
+    top: 5px;
     z-index: 1;
 }
 
-.choiceBox:hover .tooltiptext {
+.tootipDateContainer{
+	display: flex;
+	flex-direction: row;
+	height: 117px;
+	width: 100%;
+
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid grey;
+}
+
+.tooltipDateText{
+	display: flex;
+		align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 50%;
+	text-align: center;
+
+}
+
+.tooltipParticipantStatus{
+	height: 77px;
+	padding-top:15px;
+	padding-left: 10px;
+	padding-right: 18px;
+	text-align: left;
+}
+
+.choiceBox:hover .tooltipContainer {
     visibility: visible;
+    transition-delay: 1s;
 }
